@@ -1,4 +1,5 @@
 import mysql.connector
+import torchflow
 from pip_module_scanner.scanner import Scanner, ScannerException
 
 if __name__ == '__main__':
@@ -11,21 +12,27 @@ if __name__ == '__main__':
 
     mycursor = mydb.cursor()
 
-    mycursor.execute("select * from env")
+    env_name=  'fk'
+    env_ver = 'uk'
 
-    for x in mycursor:
-        print(x)
+    # try:
+        # mycursor.execute(f"insert into env set env_id='{2}', model_name='{'model_namexxx'}', env_where='{'env_wherexxx'}';")
+        # mydb.commit()
+    mycursor.execute(f"select * from env;")
+        # for res in mycursor.fetchall():
+    for f in mycursor.fetchall():
+        print(f[0])
+        mycursor.execute(f'select * from env_meta where env_id={f[0]};')
+        print(mycursor.fetchone())
+    # except Exception as e:
+    #     print(e)
+    #     mydb.rollback()
+    # try:
+        # 执行sql语句
+    # mydb.rollback()
 
-    # from pip_module_scanner.scanner import Scanner, ScannerException
+    # except:
+    #     # 发生错误时回滚
+    #     mydb.rollback()
 
-    try:
-        scanner = Scanner()
-        scanner.run()
-
-        # do whatever you want with the results here
-        # example:
-        for lib in scanner.libraries_found:
-            print("Found module %s at version %s" % (lib.key, lib.version))
-
-    except ScannerException as e:
-        print("Error: %s" % str(e))
+    # print(mycursor.execute(f"select env_id from env_meta where env_name='hello' and env_ver='0.1';"))
