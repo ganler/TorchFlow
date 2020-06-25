@@ -16,14 +16,17 @@ class env:
         self.model_name = model_name
 
     def run(self) -> record:
+        self._check_before_run()
         pass # Return Record.
+
+    def register(self): # Register Current Env To DB.
+        self._to_mysql()
+        pass
 
     def _check_before_run(self):
         if self.env_name == None or self.env_ver == None or self.env_where == None or self.model_name == None:
             raise Exception("Attribute With None Value!")
 
     def _to_mysql(self):
-        pass # To MySQL.
-
-    def _from_mysql(self):
-        pass # From MySQL
+        self._check_before_run()
+        pass  # To MySQL.

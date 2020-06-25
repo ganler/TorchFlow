@@ -2,6 +2,7 @@ class record:
     model_name = None
     record_cmd = None
     record_loss_func = None
+
     record_loss = None
     model_size = None
 
@@ -21,7 +22,5 @@ class record:
             raise Exception("Attribute With None Value!")
 
     def _to_mysql(self):
+        self._check_before_run()
         pass  # To MySQL.
-
-    def _from_mysql(self):
-        pass  # From MySQL
