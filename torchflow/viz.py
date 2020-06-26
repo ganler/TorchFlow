@@ -1,7 +1,7 @@
 from .mysql import mysql_connector
 import matplotlib.pyplot as plt
 
-def viz_model_size():
+def viz_model_records():
     plt.figure(figsize=(8, 8))
     p1 = plt.subplot(211)
 

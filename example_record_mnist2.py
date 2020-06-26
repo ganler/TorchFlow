@@ -4,6 +4,6 @@ if __name__ == '__main__':
     connctor = mysql_connector()
     envs = connctor.glob_all_envs()
     for env in envs:
-        if env.env_name == 'minst' and env.env_ver == 'v3':
+        if env.env_name == 'mnist' and env.env_ver == 'presentation':
             print(f'Running: {env}')
             env.run('python main.py --epochs=1')
