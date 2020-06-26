@@ -11,7 +11,6 @@ create table if not exists env_meta (
 
 create table if not exists env (
   env_id int unsigned not null,
-  model_name varchar(64) not null,
   env_where varchar(512) not null unique,
   env_time datetime not null default current_timestamp,
   constraint c_env_meta foreign key(env_id) references env_meta(env_id)

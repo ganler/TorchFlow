@@ -19,6 +19,7 @@ def default_record_dir():
 def save_snapshot(location, env_name, env_ver):
     aim_loc = default_env_dir() + f'/{env_name}-{env_ver}'
     copy_tree(location, aim_loc)
+    return aim_loc
 
 def record_exec_cmd_key():
     return 'TorchFlowCmd'

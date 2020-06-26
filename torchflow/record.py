@@ -29,3 +29,30 @@ class record:
                 self.env_id == None or \
                 self.record_where == None:
             raise Exception("Attribute With None Value!")
+
+    def __repr__(self):
+        '''
+    model_name = None
+    record_cmd = None
+    record_loss_func = None
+    record_loss = None
+    model_size = None
+
+    record_where = None
+    env_id = None
+
+    record_time = None
+    record_id = None
+        '''
+        ret = ''
+        ret += f'model_name = {self.model_name}\n'
+        ret += f'record_cmd = {self.record_cmd}\n'
+        ret += f'record_loss_func = {self.record_loss_func}\n'
+        ret += f'record_loss = {self.record_loss}\n'
+        ret += f'model_size = {self.model_size}\n'
+        ret += f'record_where = {self.record_where}\n'
+        ret += f'env_id = {self.env_id}\n'
+
+        ret += f'record_time = {self.record_time}\n'
+        ret += f'record_id = {self.record_id}\n'
+        return ret

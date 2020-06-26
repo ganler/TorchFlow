@@ -12,7 +12,7 @@ class mysql_connector:
         )
         self.cursor = self.db.cursor()
 
-# env_id | model_name | env_where | env_time
+# env_id | env_where | env_time
 # env_id | env_name | env_ver
     def glob_all_envs(self):
         self.cursor.execute(f"select * from env;")
@@ -20,7 +20,7 @@ class mysql_connector:
         for fetch in self.cursor.fetchall():
             self.cursor.execute(f"select env_name, env_ver from env_meta where env_id={fetch[0]};")
             meta_fetch = self.cursor.fetchone()
-            environ = env(meta_fetch[0], meta_fetch[1], fetch[2], fetch[1])
+            environ = env(meta_fetch[0], meta_fetch[1], fetch[1])
             environ.env_id = fetch[0]
             environ.env_time = fetch[-1]
             ret.append(environ)
@@ -64,7 +64,8 @@ class mysql_connector:
 
     def upload_record(self, rec: record):
         rec.check_minimum()
-        self.cursor.execute(f"insert into record set model_name='{rec.model_name}', env_id='{int(rec.env_id)}', record_cmd='{rec.record_cmd}', record_loss_func='{rec.record_loss_func}', record_loss={rec.record_loss}, record_where={rec.record_where}, record_size={rec.model_size};")
+        print(rec.env_id)
+        self.cursor.execute(f"insert into record set model_name='{rec.model_name}', env_id={int(rec.env_id)}, record_cmd='{rec.record_cmd}', record_loss_function='{rec.record_loss_func}', record_loss={rec.record_loss}, record_where='{rec.record_where}', model_size={rec.model_size};")
         self.db.commit()
 
     def upload_env(self, environ: env):
@@ -73,5 +74,5 @@ class mysql_connector:
         self.db.commit()
         self.cursor.execute(f"select env_id from env_meta where env_name='{environ.env_name}' and env_ver='{environ.env_ver}';")
         env_id = self.cursor.fetchone()[0]
-        self.cursor.execute(f"insert into env set env_id='{env_id}', model_name='{environ.model_name}', env_where='{environ.env_where}';")
+        self.cursor.execute(f"insert into env set env_id='{env_id}', env_where='{environ.env_where}';")
         self.db.commit()

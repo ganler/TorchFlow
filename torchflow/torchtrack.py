@@ -23,13 +23,14 @@ class track:
         # model_name, record_cmd, record_loss_func, record_loss, model_size)
         model_save_path = default_record_dir() + '/' + record_env_id() + '-' + self.model_ref.__class__.__name__ + '.pth'
         torch.save(self.model_ref, model_save_path)
+        # model_name, record_cmd, record_loss_func, record_loss, model_size, record_where, env_id
         rec = record(
             self.model_ref.__class__.__name__,
             record_exec_cmd(),
             self.loss_fn_ref.__class__.__name__,
             self.loss_val,
             sum([param.nelement() for param in self.model_ref.parameters()]),
-            int(record_env_id()),
-            model_save_path
+            model_save_path,
+            int(record_env_id())
         )
         connctor.upload_record(rec)
