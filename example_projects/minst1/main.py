@@ -11,13 +11,13 @@ from torch.optim.lr_scheduler import StepLR
 
 from torchflow.torchtrack import track
 
-class Net(nn.Module):
+class BigNet(nn.Module):
     def __init__(self):
-        super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(1, 8, 5, 1)
-        self.conv2 = nn.Conv2d(8, 16, 3, 1)
-        self.fc1 = nn.Linear(1936, 32)
-        self.fc2 = nn.Linear(32, 10)
+        super(BigNet, self).__init__()
+        self.conv1 = nn.Conv2d(1, 16, 5, 1)
+        self.conv2 = nn.Conv2d(16, 32, 3, 1)
+        self.fc1 = nn.Linear(3872, 64)
+        self.fc2 = nn.Linear(64, 10)
 
     def forward(self, x):
         x = self.conv1(x)
@@ -78,8 +78,8 @@ def main():
                         help='number of epochs to train (default: 14)')
     parser.add_argument('--lr', type=float, default=1.0, metavar='LR',
                         help='learning rate (default: 1.0)')
-    parser.add_argument('--gamma', type=float, default=0.7, metavar='M',
-                        help='Learning rate step gamma (default: 0.7)')
+    parser.add_argument('--gamma', type=float, default=0.5, metavar='M',
+                        help='Learning rate step gamma (default: 0.5)')
     parser.add_argument('--no-cuda', action='store_true', default=False,
                         help='disables CUDA training')
     parser.add_argument('--seed', type=int, default=1, metavar='S',
@@ -110,7 +110,7 @@ def main():
                        ])),
         batch_size=args.test_batch_size, shuffle=True, **kwargs)
 
-    model = Net().to(device)
+    model = BigNet().to(device)
     optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
 
     tracker = track(model)

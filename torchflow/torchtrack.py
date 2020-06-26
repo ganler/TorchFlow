@@ -1,5 +1,5 @@
 import torch
-import os
+import time
 from .record import record
 from .mysql import mysql_connector
 from .io import record_env_id, record_exec_cmd, default_record_dir
@@ -21,7 +21,7 @@ class track:
     def generate_record(self):
         connctor = mysql_connector()
         # model_name, record_cmd, record_loss_func, record_loss, model_size)
-        model_save_path = default_record_dir() + '/' + record_env_id() + '-' + self.model_ref.__class__.__name__ + '.pth'
+        model_save_path = default_record_dir() + f'/{record_env_id()}-{self.model_ref.__class__.__name__}-{int(100 * time.time())}.pth'
         torch.save(self.model_ref, model_save_path)
         # model_name, record_cmd, record_loss_func, record_loss, model_size, record_where, env_id
         rec = record(

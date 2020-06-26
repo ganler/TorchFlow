@@ -26,7 +26,7 @@ class env:
         process = subprocess.Popen(cmd, env=sub_env, shell=True)
         process.wait()
         if process.poll() == 0:
-            print(process.communicate()[1])
+            print(f'子进程：{process.communicate()[1]}')
         else:
             print("失败")
 

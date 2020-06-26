@@ -64,7 +64,6 @@ class mysql_connector:
 
     def upload_record(self, rec: record):
         rec.check_minimum()
-        print(rec.env_id)
         self.cursor.execute(f"insert into record set model_name='{rec.model_name}', env_id={int(rec.env_id)}, record_cmd='{rec.record_cmd}', record_loss_function='{rec.record_loss_func}', record_loss={rec.record_loss}, record_where='{rec.record_where}', model_size={rec.model_size};")
         self.db.commit()
 
